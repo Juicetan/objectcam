@@ -1,0 +1,5 @@
+/// $amount: share of white in the mix; works with `var(--token)` via CSS color-mix.
+@function mix-lighten($color, $amount) {
+  $base: 100% - $amount;
+  @return color-mix(in srgb, $color $base, white $amount);
+}

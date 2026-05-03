@@ -17,6 +17,59 @@
   --heading: #{$font-heading};
   --mono: #{$font-mono};
 
+  /* Design tokens for FLB mixins */
+  --radius-sm: #{$radius-sm};
+  --border-width-hairline: #{$border-width-hairline};
+
+  --space-0: #{$space-0};
+  --space-1: #{$space-1};
+  --space-2: #{$space-2};
+  --space-4: #{$space-4};
+  --space-5: #{$space-5};
+  --space-6: #{$space-6};
+  --space-10: #{$space-10};
+  --space-field-stack: #{$space-field-stack};
+  --space-control-inline: #{$space-control-inline};
+  --space-button-padding-y: #{$space-button-padding-y};
+  --space-button-padding-x: #{$space-button-padding-x};
+  --space-button-inline-gap: #{$space-button-inline-gap};
+  --space-animation-lift: #{$space-animation-lift};
+
+  --size-input-height: #{$size-input-height};
+  --size-min-button: #{$size-min-button};
+
+  --font-size-caption: #{$font-size-caption};
+  --font-size-body-sm: #{$font-size-body-sm};
+  --font-size-body: #{$font-size-body};
+  --font-weight-regular: #{$font-weight-regular};
+  --line-height-snug: #{$line-height-snug};
+  --line-height-body: #{$line-height-body};
+  --line-height-button: #{$line-height-button};
+
+  --duration-slow: #{$duration-slow};
+  --easing-default: #{$easing-default};
+  --opacity-control-disabled: #{$opacity-control-disabled};
+
+  --color-text-primary: #{$color-text-primary};
+  --color-text-label: #{$color-text-label};
+  --color-text-placeholder: #{$color-text-placeholder};
+  --color-text-on-primary: #{$color-text-on-primary};
+  --color-danger: #{$color-danger};
+  --color-info-text: #{$color-info-text};
+
+  --color-action-primary: #{$color-action-primary};
+  --color-action-primary-hover: #{$color-action-primary-hover};
+  --color-action-primary-ghost-hover: #{$color-action-primary-ghost-hover};
+
+  --color-surface-page: #{$color-surface-page};
+  --color-surface-panel: #{$color-surface-panel};
+  --color-surface-elevated: #{$color-surface-elevated};
+  --color-surface-input-focus: #{$color-surface-input-focus};
+
+  --color-border-input: #{$color-border-input};
+  --color-border-input-focus: #{$color-border-input-focus};
+  --color-border-button-secondary: #{$color-border-button-secondary};
+
   font: #{$font-root} / #{$line-height-root} var(--sans);
   letter-spacing: $letter-spacing-root;
   color-scheme: light dark;
@@ -26,6 +79,41 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #{$color-text-dm};
+    --text-h: #{$color-text-heading-dm};
+    --bg: #{$color-bg-dm};
+    --border: #{$color-border-dm};
+    --code-bg: #{$color-code-bg-dm};
+    --accent: #{$color-accent-dm};
+    --accent-bg: #{$color-accent-bg-dm};
+    --accent-border: #{$color-accent-border-dm};
+    --social-bg: #{$color-social-bg-dm};
+    --shadow: #{$shadow-elevated-dm};
+
+    --color-text-primary: #{$color-text-primary-dm};
+    --color-text-label: #{$color-text-label-dm};
+    --color-text-placeholder: #{$color-text-placeholder-dm};
+    --color-info-text: #{$color-info-text-dm};
+
+    --color-action-primary: #{$color-action-primary-dm};
+    --color-action-primary-hover: #{$color-action-primary-hover-dm};
+    --color-action-primary-ghost-hover: #{$color-action-primary-ghost-hover-dm};
+
+    --color-danger: #{$color-danger-dm};
+
+    --color-surface-page: #{$color-surface-page-dm};
+    --color-surface-panel: #{$color-surface-panel-dm};
+    --color-surface-elevated: #{$color-surface-elevated-dm};
+    --color-surface-input-focus: #{$color-surface-input-focus-dm};
+
+    --color-border-input: #{$color-border-input-dm};
+    --color-border-input-focus: #{$color-border-input-focus-dm};
+    --color-border-button-secondary: #{$color-border-button-secondary-dm};
+  }
 }
 
 html,body{

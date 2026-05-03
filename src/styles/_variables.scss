@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Breakpoints
 $bp-md: 1024px;
 
@@ -31,6 +33,7 @@ $radius-lg: 6px;
 
 // Motion
 $duration-fast: 0.3s;
+$duration-slow: 400ms;
 
 // Font stacks (also exposed as CSS variables on :root)
 $font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -62,3 +65,79 @@ $color-accent-border-dm: rgb(192 132 252 / 50%);
 $color-social-bg-dm: rgb(47 48 58 / 50%);
 $shadow-elevated-dm:
   rgb(0 0 0 / 40%) 0 10px 15px -3px, rgb(0 0 0 / 25%) 0 4px 6px -2px;
+
+// ─── Spacing scale (composable → CSS --space-*) ───
+$space-0: 0;
+$space-1: 2px;
+$space-2: 5px;
+$space-4: 8px;
+$space-5: 10px;
+$space-6: 12px;
+$space-10: 24px;
+
+// ─── Semantic spacing ───
+$space-field-stack: $space-1;
+$space-control-inline: $space-6;
+$space-button-padding-y: $space-4;
+$space-button-padding-x: $space-10;
+$space-button-inline-gap: $space-5;
+$space-animation-lift: 10px;
+
+// ─── Layout / sizing ───
+$size-input-height: 40px;
+$size-min-button: 80px;
+$border-width-hairline: 1px;
+
+// ─── Typography tokens ───
+$font-size-caption: 12px;
+$font-size-body-sm: 14px;
+$font-size-body: 16px;
+$font-weight-regular: 400;
+$line-height-snug: 1.35;
+$line-height-body: 1.6;
+$line-height-button: 24px;
+
+// ─── Motion tokens ───
+$easing-default: ease;
+$opacity-control-disabled: 0.55;
+
+// ─── Semantic colors (light): align FLB mixins with app palette ───
+$color-action-primary: $color-accent;
+$color-action-primary-hover: color.adjust($color-accent, $lightness: -8%);
+$color-action-primary-ghost-hover: color.adjust($color-accent, $lightness: -14%);
+$color-text-on-primary: #fff;
+$color-danger: #ff2828;
+$color-info-text: #37474f;
+
+$color-surface-page: #f5f6fa;
+$color-surface-panel: color.mix($color-bg, $color-border, 92%);
+$color-surface-elevated: $color-bg;
+$color-surface-input-focus: $color-bg;
+
+$color-border-input: color.mix($color-border, #c4cfde, 55%);
+$color-border-input-focus: #c4cfde;
+$color-border-button-secondary: #d7dbec;
+
+$color-text-primary: $color-text-heading;
+$color-text-label: $color-text;
+$color-text-placeholder: #a1a7c4;
+
+// ─── Semantic colors (dark) ───
+$color-action-primary-dm: $color-accent-dm;
+$color-action-primary-hover-dm: color.adjust($color-accent-dm, $lightness: -8%);
+$color-action-primary-ghost-hover-dm: color.adjust($color-accent-dm, $lightness: -14%);
+$color-danger-dm: #ff6b6b;
+$color-info-text-dm: #a8b0c4;
+
+$color-surface-page-dm: $color-bg-dm;
+$color-surface-panel-dm: color.adjust($color-bg-dm, $lightness: 4%);
+$color-surface-elevated-dm: color.adjust($color-bg-dm, $lightness: 8%);
+$color-surface-input-focus-dm: color.adjust($color-bg-dm, $lightness: 10%);
+
+$color-border-input-dm: color.adjust($color-border-dm, $lightness: 8%);
+$color-border-input-focus-dm: color.adjust($color-border-dm, $lightness: 18%);
+$color-border-button-secondary-dm: color.adjust($color-border-dm, $lightness: 8%);
+
+$color-text-primary-dm: $color-text-heading-dm;
+$color-text-label-dm: $color-text-dm;
+$color-text-placeholder-dm: #6b7280;
