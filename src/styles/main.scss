@@ -1,0 +1,124 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+:root {
+  --text: #{$color-text};
+  --text-h: #{$color-text-heading};
+  --bg: #{$color-bg};
+  --border: #{$color-border};
+  --code-bg: #{$color-code-bg};
+  --accent: #{$color-accent};
+  --accent-bg: #{$color-accent-bg};
+  --accent-border: #{$color-accent-border};
+  --social-bg: #{$color-social-bg};
+  --shadow: #{$shadow-elevated};
+
+  --sans: #{$font-sans};
+  --heading: #{$font-heading};
+  --mono: #{$font-mono};
+
+  font: #{$font-root} / #{$line-height-root} var(--sans);
+  letter-spacing: $letter-spacing-root;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,body{
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: $font-h1;
+  letter-spacing: $letter-h1;
+  margin: $margin-h1-block 0;
+
+  @include bp-md-down {
+    font-size: $font-h1-md;
+    margin: $margin-h1-block-md 0;
+  }
+}
+
+h2 {
+  font-size: $font-h2;
+  line-height: $line-height-h2;
+  letter-spacing: $letter-h2;
+  margin: 0 0 8px;
+
+  @include bp-md-down {
+    font-size: $font-h2-md;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-size: $font-code;
+  line-height: $line-height-code;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.intro{
+  max-width: 530px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 0 20px;
+  .header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .logo{
+      width: 100px;
+      aspect-ratio: 1;
+    }
+    .title{
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  .description{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    p{
+      font-size: 16px;
+      line-height: 1.5;
+      &.tagline{
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+// Breakpoints
+$bp-md: 1024px;
+
+// Layout
+$app-max-width: 1126px;
+
+// Typography
+$font-root: 18px;
+$font-root-md: 16px;
+$line-height-root: 145%;
+$letter-spacing-root: 0.18px;
+
+$font-h1: 56px;
+$font-h1-md: 36px;
+$letter-h1: -1.68px;
+$margin-h1-block: 32px;
+$margin-h1-block-md: 20px;
+
+$font-h2: 24px;
+$font-h2-md: 20px;
+$line-height-h2: 118%;
+$letter-h2: -0.24px;
+
+$font-code: 15px;
+$line-height-code: 135%;
+
+// Radii
+$radius-sm: 4px;
+$radius-md: 5px;
+$radius-lg: 6px;
+
+// Motion
+$duration-fast: 0.3s;
+
+// Font stacks (also exposed as CSS variables on :root)
+$font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+$font-heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+$font-mono: ui-monospace, Consolas, monospace;
+
+// Light theme (sources for CSS custom properties)
+$color-text: #6b6375;
+$color-text-heading: #08060d;
+$color-bg: #fff;
+$color-border: #e5e4e7;
+$color-code-bg: #f4f3ec;
+$color-accent: #aa3bff;
+$color-accent-bg: rgb(170 59 255 / 10%);
+$color-accent-border: rgb(170 59 255 / 50%);
+$color-social-bg: rgb(244 243 236 / 50%);
+$shadow-elevated:
+  rgb(0 0 0 / 10%) 0 10px 15px -3px, rgb(0 0 0 / 5%) 0 4px 6px -2px;
+
+// Dark theme overrides
+$color-text-dm: #9ca3af;
+$color-text-heading-dm: #f3f4f6;
+$color-bg-dm: #16171d;
+$color-border-dm: #2e303a;
+$color-code-bg-dm: #1f2028;
+$color-accent-dm: #c084fc;
+$color-accent-bg-dm: rgb(192 132 252 / 15%);
+$color-accent-border-dm: rgb(192 132 252 / 50%);
+$color-social-bg-dm: rgb(47 48 58 / 50%);
+$shadow-elevated-dm:
+  rgb(0 0 0 / 40%) 0 10px 15px -3px, rgb(0 0 0 / 25%) 0 4px 6px -2px;

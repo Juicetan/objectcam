@@ -1,0 +1,179 @@
+@use 'variables' as *;
+
+@mixin noSelect{
+  touch-callout: none;
+  user-select:none;
+  cursor: default;
+}
+
+@mixin clickable{
+  @include noSelect;
+  cursor: pointer;
+}
+
+@mixin movable{
+  @include noSelect;
+  cursor: move;
+}
+
+@mixin flb-form-field{
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-field-stack);
+  .field-label {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+  }
+  &.required {
+    .field-label {
+      &::after {
+        content: '*';
+        color: var(--color-danger);
+      }
+    }
+  }
+  .field-input {
+    width: 100%;
+    height: var(--size-input-height);
+    border: var(--border-width-hairline) solid var(--color-border-input);
+    outline: none;
+    box-sizing: border-box;
+    border-radius: var(--radius-sm);
+    padding: var(--space-0) var(--space-control-inline);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-label);
+    background-color: transparent;
+    &::placeholder {
+      color: var(--color-text-placeholder);
+    }
+    &:focus {
+      outline: none;
+      border-color: var(--color-border-input-focus);
+      background-color: var(--color-surface-input-focus);
+    }
+  }
+  .field-error-info {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-danger);
+    &.error {
+      color: var(--color-danger);
+    }
+    &.info:not(.error) {
+      color: var(--color-info-text);
+    }
+    white-space: pre-line;
+  }
+}
+
+@mixin flb-btn {
+  @include clickable;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-button-inline-gap);
+  padding: var(--space-button-padding-y) var(--space-button-padding-x);
+  border-radius: var(--radius-sm);
+  border: var(--border-width-hairline) solid transparent;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-button);
+  min-width: var(--size-min-button);
+  text-align: center;
+
+  &.primary {
+    background-color: var(--color-action-primary);
+    color: var(--color-text-on-primary);
+    border-color: var(--color-action-primary);
+
+    &:hover:not(:disabled):not(.disabled) {
+      background-color: var(--color-action-primary-hover);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--color-surface-elevated);
+    border-color: var(--color-border-button-secondary);
+    color: var(--color-action-primary);
+
+    &:hover:not(:disabled):not(.disabled) {
+      background-color: var(--color-surface-panel);
+    }
+  }
+
+  &.ghost {
+    background-color: transparent;
+    color: var(--color-action-primary);
+
+    &:hover:not(:disabled):not(.disabled) {
+      color: var(--color-action-primary-ghost-hover);
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    cursor: default;
+    opacity: var(--opacity-control-disabled);
+
+    ink-ripple {
+      display: none;
+    }
+  }
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@mixin fadeInElem($elemCount: 1, $duration: var(--duration-slow)){
+  will-change: transform;
+  transform: translateY(var(--space-animation-lift));
+  opacity: 0;
+  animation: fadeInAnim $duration var(--easing-default) forwards;
+  animation-delay: calc(#{$elemCount} * 0.2s);
+}
+
+@mixin status-pill($color: null, $text-color: var(--color-text-primary)){
+  flex: none;
+  width: fit-content;
+  box-sizing: border-box;
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-snug);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: mix-lighten(var(--color-action-primary), 50%);
+  color: var(--color-text-primary);
+  text-align: center;
+  word-break: break-word;
+  &.declined{
+    background-color: #FFE1DE;
+  }
+  &.needs_review{
+    background-color: #E9E7FF;
+  }
+  &.incomplete{
+    background-color: #FFEABA;
+  }
+  &.awaiting_clo{
+    background-color: #E9E7FF;
+  }
+  &.deactivated{
+    background-color: #CDCDCD;
+  }
+  &.verified{
+    background-color: #C4F8E2;
+  }
+
+  @if $color {
+    background-color: $color;
+    color: $text-color;
+  }
+}
