@@ -1,5 +1,8 @@
 .monitor-item{
+  display: flex;
+  flex-direction: column;
   .window-header{
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,6 +16,23 @@
       width: 16px;
       height: 16px;
       cursor: pointer;
+    }
+  }
+  .window-content{
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .canvas-wrap{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .monitor-feed{
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

@@ -34,8 +34,13 @@
       <template x-if="monitorStore.monitors.length > 0">
         <div class="app-inner">
           <header class="app-header">
-            <img src="./appicon.png" alt="" class="logo"/>
-            <div class="header-title">WatcherCam</div>
+            <div class="header-left">
+              <img src="./appicon.png" alt="" class="logo"/>
+              <div class="header-title">WatcherCam</div>
+            </div>
+            <div class="header-right">
+              <button class="btn primary" @click="comps.cameraPicker.open()">Start monitor</button>
+            </div>
           </header>
           <div class="app-content">
             <section class="monitors">
@@ -48,10 +53,17 @@
                   >
                     <div class="window-header">
                       <div class="header-title" x-text="monitor.name"></div>
-                      <img src="./close.svg" alt="Close" class="close-btn"/>                      
+                      <img 
+                        src="./close.svg" 
+                        alt="Close" 
+                        class="close-btn"
+                        @click="monitorStore.removeMonitor(monitor)"
+                      />                      
                     </div>
                     <div class="window-content">
-                      
+                      <div class="canvas-wrap">
+                        <video class="monitor-feed" autoplay muted playsinline></video>
+                      </div>
                     </div>
                   </div>
                 </template>

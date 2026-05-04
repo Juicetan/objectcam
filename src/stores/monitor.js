@@ -1,5 +1,6 @@
 import Alpine from 'alpinejs';
 import { Monitor } from '@/components/monitor/monitor.js';
+import { removeObject } from '@/utils/array.js';
 
 Alpine.store('monitor', {
   monitors: [],
@@ -10,7 +11,11 @@ Alpine.store('monitor', {
     }
 
     this.monitors.push(new Monitor().setCameraInfo(camera));
-  }
+  },
+  removeMonitor(monitor){
+    monitor.stopFeed();
+    removeObject(this.monitors, monitor);
+  },
 });
 
 export const monitorStore = Alpine.store('monitor');

@@ -224,16 +224,28 @@ code {
     flex: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     padding: 10px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    .logo{
-      width: 30px;
+    .header-left{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .logo{
+        width: 30px;
+      }
+      .header-title{
+        font-size: 20px;
+        font-weight: bold;
+      }
     }
-    .header-title{
-      font-size: 20px;
-      font-weight: bold;
+    .header-right{
+      margin-left: auto;
+      .btn{
+        @include flb-btn;
+      }
     }
   }
   
