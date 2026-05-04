@@ -1,5 +1,7 @@
 @use 'variables' as *;
 @use 'mixins' as *;
+@use '@/components/cameraPicker/cameraPicker.scss' as *;
+@use '@/components/monitor/monitor.scss' as *;
 
 :root {
   --text: #{$color-text};
@@ -206,6 +208,60 @@ code {
       &.tagline{
         font-size: 20px;
         font-weight: bold;
+      }
+    }
+  }
+  .create-monitor-trigger{
+    @include flb-btn;
+  }
+}
+
+.app-inner{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .app-header{
+    flex: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    .logo{
+      width: 30px;
+    }
+    .header-title{
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+  
+  .app-content{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    background: var(--bg);
+    .monitors{
+      flex: 1;
+      border-right: 1px solid var(--border);
+    }
+    .captures-panel{
+      flex: 0 0 auto;
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      .snapshots-header{
+        flex: 0 0 auto;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+      }
+      .snapshots-list{
+        flex: 1 1 auto;
+        padding: 10px;
+        overflow-y: auto;
       }
     }
   }

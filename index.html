@@ -2,30 +2,106 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WatcherCam</title>
   </head>
   <body>
-    <div id="app">
-      <section class="intro">
-        <div class="header">
-          <img src="./appicon.png" alt="" class="logo">
-          <div class="title">WatcherCam</div>
+    <div id="app" x-data="app">
+      <template x-if="monitorStore.monitors.length <= 0">
+        <section class="intro">
+          <div class="header">
+            <img src="./appicon.png" alt="" class="logo">
+            <div class="title">WatcherCam</div>
+          </div>
+          <div class="description">
+            <p class="tagline">Turn your webcam into a security camera</p>
+            <p>
+              WatcherCam is a simple and easy to use security camera that uses your webcam to monitor and detect various types of objects of interest.
+            </p>
+            <p>
+              Once detected, send snapshots to any web service you want, or use ours.
+            </p>
+          </div>
+          <div class="ctas">
+            <button 
+              class="create-monitor-trigger btn primary" 
+              @click="comps.cameraPicker.open()"
+            >Start monitor</button>
+          </div>
+        </section>
+      </template>
+      <template x-if="monitorStore.monitors.length > 0">
+        <div class="app-inner">
+          <header class="app-header">
+            <img src="./appicon.png" alt="" class="logo"/>
+            <div class="header-title">WatcherCam</div>
+          </header>
+          <div class="app-content">
+            <section class="monitors">
+              <div class="monitor-list">
+                <template x-for="monitor in monitorStore.monitors" :key="monitor.id">
+                  <div 
+                    class="monitor-item app-comp" 
+                    x-init="monitor.setEl($el)"
+                    x-data="monitor"
+                  >
+                    <div class="window-header">
+                      <div class="header-title" x-text="monitor.name"></div>
+                      <img src="./close.svg" alt="Close" class="close-btn"/>                      
+                    </div>
+                    <div class="window-content">
+                      
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </section>
+            <section class="captures-panel">
+              <div class="snapshots-header">Captured Snapshots</div>
+              <div class="snapshots-list">
+                <template x-for="snapshot in monitorStore.snapshots" :key="snapshot.id">
+                  <div class="snapshot-item">
+                    <img src="snapshot.image" alt="" class="snapshot-image"/>
+                  </div>
+                </template>
+              </div>
+            </section>
+          </div>
         </div>
-        <div class="description">
-          <p class="tagline">Turn your webcam into a security camera</p>
-          <p>
-            WatcherCam is a simple and easy to use security camera that uses your webcam to monitor and detect various types of objects of interest.
-          </p>
-          <p>
-            Once detected, send snapshots to any web service you want, or use ours.
-          </p>
+      </template>
+      <dialog 
+        class="camera-picker modal-window app-comp" 
+        x-data="comps.cameraPicker"
+        @camera-selected="fn.handleCameraSelected($event.detail)"
+      >
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="header-title">Select a camera</div>
+            <button class="close-btn" @click="close()">
+              <img src="./close.svg" alt="Close" class="close-icon" />
+            </button>
+          </div>
+          <div class="modal-body">
+            <template x-if="!isLoadingCameras">
+              <div class="camera-list">
+                <template x-for="camera in cameras" :key="camera.deviceId">
+                  <div class="camera-item" @click="selectCamera(camera)">
+                    <div class="camera-name" x-text="camera?.label"></div>
+                    <div class="camera-id" x-text="camera?.deviceId"></div>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <template x-if="isLoadingCameras">
+              <div class="camera-item loading">
+                <div class="camera-name">Loading cameras...</div>
+              </div>
+            </template>
+          </div>
         </div>
-        <div class="ctas">
-          <button class="btn-primary">Start monitor</button>
-        </div>
-      </section>
+      </dialog>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

@@ -1,0 +1,38 @@
+@use '@/styles/mixins' as *;
+
+.camera-picker{
+  @include modal-window;
+  .modal-body{
+    padding: 0 0 40px 0;
+    width: 430px;
+    .camera-list{
+      .camera-item{
+        @include clickable;
+        padding: 10px 40px;
+        .camera-name{
+          font-size: 16px;
+          font-weight: 600;
+          color: #000;
+        }
+        .camera-id{
+          font-size: 10px;
+          color: #666;
+        }
+        &:hover{
+          background-color: #f0f0f0;
+        }
+        &:active{
+          background-color: #e0e0e0;
+        }
+      }
+    }
+    .camera-item.loading{
+      padding: 10px 40px;
+      .camera-name{
+        font-size: 16px;
+        font-weight: 600;
+        color: #000;
+      }
+    }
+  }
+}

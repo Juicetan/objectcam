@@ -141,3 +141,12 @@ $color-border-button-secondary-dm: color.adjust($color-border-dm, $lightness: 8%
 $color-text-primary-dm: $color-text-heading-dm;
 $color-text-label-dm: $color-text-dm;
 $color-text-placeholder-dm: #6b7280;
+
+// Sass fallbacks for `modal-window` mixin (`var(--bits-*, #{…})`), aligned with bits defaults / app tokens
+$bits-color-overlay-scrim-default: rgb(0 0 0 / 0.5);
+$bits-modal-inner-padding-default: 40px;
+$bits-font-size-modal-title-default: 24px;
+$bits-font-weight-semibold-default: 600;
+$bits-color-text-heading-default: $color-text-heading;
+$bits-font-size-body-default: $font-size-body;
+$bits-color-text-muted-default: $color-text;
