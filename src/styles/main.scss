@@ -256,7 +256,18 @@ code {
     background: var(--bg);
     .monitors{
       flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
       border-right: 1px solid var(--border);
+      .monitor-list{
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 4px;
+        align-content: start;
+      }
     }
     .captures-panel{
       flex: 0 0 auto;
