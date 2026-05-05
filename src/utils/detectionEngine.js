@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs-core';
+import * as tf from '@tensorflow/tfjs';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 
 let loadPromise = null;
@@ -50,7 +50,7 @@ class DetectionModel{
     this.tfModel = tfModel;
   }
 
-  async detect(video, opts){
+  async detect(video, opts = {}){
     const { objType = OBJECT_TYPES.PERSON, confidence = 0.66 } = opts;
     const predictions = await this.tfModel.detect(video);
     return predictions.filter((p) => p.class === objType && p.score >= confidence).map((p) => ({
@@ -66,7 +66,7 @@ class DetectionModel{
   }
 }
 
-export const getModel = () => {
+export const getModel = async () => {
   if(!loadPromise){
     loadPromise = (async () => {
       await tf.ready();
