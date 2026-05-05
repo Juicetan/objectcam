@@ -11,7 +11,7 @@ export class Monitor {
     this.$video = null;
     this.stream = null;
     this.cameraInfo = null;
-    this.detectionModel = null;
+    this.detecting = false;
   }
 
   setEl($el){
@@ -41,32 +41,36 @@ export class Monitor {
     });
     this.$video.srcObject = stream;
     this.stream = stream;
-    await this._startDetectionLoop();
+    this._startDetectionLoop();
   }
 
   _stopDetectionLoop(){
-    this.detectionModel = null;
+    this.detecting = false;
     return this;
   }
 
   async _startDetectionLoop(){
     this._stopDetectionLoop();
-    this.detectionModel = await getModel();
-    console.log('detectionModel loaded', this.detectionModel);
+    const detectionModel = await getModel();
+    this.detecting = true;
     const detectLoop = async () => {
-      if(!this.detectionModel || !this.$video?.videoWidth){
-        setTimeout(detectLoop, 200);
+      if(!this.detecting){
+        return;
+      }
+      
+      if(!detectionModel || !this.$video?.videoWidth){
+        setTimeout(detectLoop, 1000);
         return;
       }
       try {
-      const predictions = await this.detectionModel.detect(this.$video, {
-        objType: this.objType
+        const predictions = await detectionModel.detect(this.$video, {
+          objType: this.objType
         });
         console.log('predictions', predictions);
         window.requestAnimationFrame(detectLoop);
       } catch(err){
         console.error('detection error', err);
-        setTimeout(detectLoop, 200);
+        setTimeout(detectLoop, 1000);
       }
     }
     detectLoop();
