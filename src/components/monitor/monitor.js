@@ -37,6 +37,8 @@ export class Monitor {
     console.log('startFeed', this.cameraInfo);
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
+        width: { ideal: 1920 },
+        height: { ideal: 1080 },
         deviceId: {
           exact: this.cameraInfo.deviceId,
         },
