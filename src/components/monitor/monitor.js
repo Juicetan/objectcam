@@ -14,6 +14,20 @@ export class Monitor {
     this.cameraInfo = null;
     this.detecting = false;
     this.predictionBoxes = [];
+    this.lastPredictionCount = 0;
+    this.evtListeners = [];
+  }
+  
+  get renderScale(){
+    const vidResolution = {
+      width: this.$video.videoWidth,
+      height: this.$video.videoHeight,
+    };
+    const vidWrapDim = this.$vidWrap.getBoundingClientRect();
+    return {
+      width: vidWrapDim.width / vidResolution.width,
+      height: vidWrapDim.height / vidResolution.height,
+    };
   }
 
   setEl($el){
@@ -57,6 +71,25 @@ export class Monitor {
     return this;
   }
 
+  on(event, callback){
+    this.evtListeners.push({ event, callback });
+    return this;
+  }
+
+  off(event, callback){
+    this.evtListeners = this.evtListeners.filter(listener => listener.event !== event || listener.callback !== callback);
+    return this;
+  }
+
+  _emit(event, data){
+    this.evtListeners.forEach(listener => {
+      if(listener.event === event){
+        listener.callback(data);
+      }
+    });
+    return this;
+  }
+
   _stopDetectionLoop(){
     this.detecting = false;
     return this;
@@ -79,6 +112,12 @@ export class Monitor {
         const predictions = await detectionModel.detect(this.$video, {
           objType: this.objType
         });
+        if(predictions.length > this.lastPredictionCount){
+          const snapshot = this._snapshot(predictions);
+          console.log('snapshot', snapshot);
+          this._emit('snapshot', snapshot);
+        }
+        this.lastPredictionCount = predictions.length;
         this._renderPredictions(predictions);
         setTimeout(detectLoop, 100);
       } catch(err){
@@ -92,24 +131,18 @@ export class Monitor {
   _renderPredictions(predictions){
     this._clearPredictions();
 
-    const vidResolution = {
-      width: this.$video.videoWidth,
-      height: this.$video.videoHeight,
-    };
-    const vidWrapDim = this.$vidWrap.getBoundingClientRect();
-    const widthScale = vidWrapDim.width / vidResolution.width;
-    const heightScale = vidWrapDim.height / vidResolution.height;
-
+    const scale = this.renderScale;
+    
     predictions.forEach(prediction => {
       const { objType, confidence, position } = prediction;
       const { x, y, width, height } = position;
       const rect = document.createElement('div');
       rect.classList.add('prediction-box');
       rect.style.position = 'absolute';
-      rect.style.left = `${x * widthScale}px`;
-      rect.style.top = `${y * heightScale}px`;
-      rect.style.width = `${width * widthScale}px`;
-      rect.style.height = `${height}px`;
+      rect.style.left = `${x * scale.width}px`;
+      rect.style.top = `${y * scale.height}px`;
+      rect.style.width = `${width * scale.width}px`;
+      rect.style.height = `${height * scale.height}px`;
       
       const label = document.createElement('div');
       label.classList.add('pb-label');
@@ -127,5 +160,37 @@ export class Monitor {
     });
     this.predictionBoxes = [];
     return this;
+  }
+
+  _snapshot(predictions){
+    const canvas = document.createElement('canvas');
+    canvas.width = this.$video.videoWidth;
+    canvas.height = this.$video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(this.$video, 0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 4;
+    predictions.forEach(prediction => {
+      const { objType, confidence, position } = prediction;
+      const { x, y, width, height } = position;
+      
+      ctx.strokeRect(x, y, width, height);
+
+      const label = `${objType} ${Math.round(confidence*100)}%`;
+      const textDim = ctx.measureText(label);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillRect(x, y, textDim.width + 40, 22 + 10);
+      ctx.font = '14px sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.fillText(label, x + 10, y + 20);
+    });
+
+    return {
+      datetime: new Date(),
+      predictions: predictions,
+      imgDataURL: canvas.toDataURL('image/webp', 0.85),
+    };
   }
 }

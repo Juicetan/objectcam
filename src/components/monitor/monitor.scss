@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .monitor-item{
   min-height: 0;
   display: flex;
@@ -43,8 +45,10 @@
         z-index: 1000;
         .pb-label{
           position: absolute;
+          color: white;
           top: 0;
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: black;
+          opacity: 0.5;
           padding: 5px 10px;
         }
       }

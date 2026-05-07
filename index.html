@@ -71,10 +71,33 @@
             </section>
             <section class="captures-panel">
               <div class="snapshots-header">Captured Snapshots</div>
-              <div class="snapshots-list">
-                <template x-for="snapshot in monitorStore.snapshots" :key="snapshot.id">
+              <div class="snapshots-list"
+                x-ref="snapshotsList"
+                x-effect="
+                  monitorStore.snapshots.length;
+                  $nextTick(() => {
+                    const $lastItem = $refs.snapshotsList.lastElementChild;
+                    if($lastItem){
+                      $lastItem.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  });
+                "
+              >
+                <template x-for="snapshot in monitorStore.snapshots" :key="snapshot.datetime.getTime()">
                   <div class="snapshot-item">
-                    <img src="snapshot.image" alt="" class="snapshot-image"/>
+                    <img :src="snapshot.imgDataURL" alt="" class="snapshot-image"/>
+                    <div class="snapshot-meta">
+                      <div class="ss-datetime" x-text="snapshot.datetime.toLocaleString()"></div>
+                      <div class="ss-objects">
+                        <span x-text="snapshot.predictions.length"></span>
+                        <template x-if="snapshot.predictions.length > 1">
+                          <span x-if="snapshot.predictions.length > 1">objects</span>
+                        </template>
+                        <template x-if="snapshot.predictions.length === 1">
+                          <span>object</span>
+                        </template>
+                      </div>
+                    </div>
                   </div>
                 </template>
               </div>

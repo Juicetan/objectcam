@@ -4,13 +4,18 @@ import { removeObject } from '@/utils/array.js';
 
 Alpine.store('monitor', {
   monitors: [],
+  snapshots: [],
   addMonitor(camera){
     const existingMonitor = this.monitors.find(m => m.cameraInfo?.deviceId === camera.deviceId);
     if(existingMonitor){
       return existingMonitor;
     }
 
-    this.monitors.push(new Monitor().setCameraInfo(camera));
+    const monitor = new Monitor().setCameraInfo(camera);
+    monitor.on('snapshot', (snapshot) => {
+      this.snapshots.push(snapshot);
+    });
+    this.monitors.push(monitor);
   },
   removeMonitor(monitor){
     monitor.stopFeed();

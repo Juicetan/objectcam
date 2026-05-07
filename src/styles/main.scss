@@ -254,6 +254,7 @@ code {
     display: flex;
     flex-direction: row;
     background: var(--bg);
+    min-height: 0;
     .monitors{
       flex: 1;
       min-height: 0;
@@ -274,6 +275,8 @@ code {
       width: 20%;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
       .snapshots-header{
         flex: 0 0 auto;
         font-size: 20px;
@@ -283,8 +286,37 @@ code {
       }
       .snapshots-list{
         flex: 1 1 auto;
+        min-height: 0;
         padding: 10px;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .snapshot-item{
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          .snapshot-image{
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+          .snapshot-meta{
+            display: flex;
+            flex-direction: column;
+            padding: 4px 10px;
+            background-color: whitesmoke;
+            .ss-datetime{
+              font-size: 12px;
+              font-weight: bold;
+            }
+            .ss-objects{
+              font-size: 12px;
+              line-height: 1;
+              color: var(--text-secondary);
+            }
+          }
+        }
       }
     }
   }
