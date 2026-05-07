@@ -268,6 +268,7 @@ code {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 4px;
         align-content: start;
+        overflow-y: auto;
       }
     }
     .captures-panel{
@@ -315,6 +316,26 @@ code {
               line-height: 1;
               color: var(--text-secondary);
             }
+          }
+        }
+      }
+    }
+    @media (max-width: 852px) {
+      flex-direction: column;
+      .captures-panel{
+        width: 100%;
+        .snapshots-header{
+          font-size: 12px;
+          line-height: 14px;
+          text-align: left;
+          padding-bottom: 0;
+        }
+        .snapshots-list{
+          flex-direction: row;
+          overflow-y: hidden;
+          overflow-x: auto;
+          .snapshot-item{
+            flex: 0 0 200px;
           }
         }
       }

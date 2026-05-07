@@ -2,8 +2,12 @@
 
 .monitor-item{
   min-height: 0;
+  aspect-ratio: 16 / 10.3;
   display: flex;
   flex-direction: column;
+  &.single{
+    aspect-ratio: auto;
+  }
   .window-header{
     flex: 0 0 auto;
     display: flex;

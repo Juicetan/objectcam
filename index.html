@@ -48,6 +48,7 @@
                 <template x-for="monitor in monitorStore.monitors" :key="monitor.id">
                   <div 
                     class="monitor-item app-comp" 
+                    :class="{ 'single': monitorStore.monitors.length === 1 }"
                     x-init="monitor.setEl($el)"
                     x-data="monitor"
                   >
