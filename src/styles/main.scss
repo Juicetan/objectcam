@@ -268,6 +268,8 @@ code {
   }
   
   .app-content{
+    $width-mobile: 500px;
+    $width-small: 852px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: row;
@@ -280,6 +282,7 @@ code {
       flex-direction: column;
       border-right: 1px solid var(--border);
       .monitor-list{
+        position: relative;
         flex: 1;
         min-height: 0;
         display: grid;
@@ -287,6 +290,12 @@ code {
         gap: 4px;
         align-content: start;
         overflow-y: auto;
+        @media (max-width: $width-mobile) {
+          display: block;
+          .monitor-item.single{
+            height: 100%;
+          }
+        }
       }
     }
     .captures-panel{
@@ -318,7 +327,7 @@ code {
           .snapshot-image{
             width: 100%;
             height: auto;
-            object-fit: cover;
+            object-fit: contain;
           }
           .snapshot-meta{
             display: flex;
@@ -344,7 +353,7 @@ code {
         }
       }
     }
-    @media (max-width: 852px) {
+    @media (max-width: $width-small) {
       flex-direction: column;
       .captures-panel{
         width: 100%;
@@ -360,6 +369,9 @@ code {
           overflow-x: auto;
           .snapshot-item{
             flex: 0 0 200px;
+            .snapshot-image{
+              max-height: 140px;
+            }
           }
         }
       }

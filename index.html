@@ -147,7 +147,7 @@
                   <template x-for="camera in cameras" :key="camera.deviceId">
                     <div class="camera-item" @click="selectCamera(camera, $refs.objectSelector.value, $refs.monitorNameInput.value)">
                       <div class="camera-name" x-text="camera?.label"></div>
-                      <div class="camera-id" x-text="camera?.deviceId"></div>
+                      <div class="camera-id" x-text="camera?.deviceId.slice(0, 8)"></div>
                     </div>
                   </template>
                 </div>
