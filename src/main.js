@@ -5,6 +5,7 @@ import { monitorStore } from '@/stores/monitor.js';
 import { CameraPicker } from '@/components/cameraPicker/cameraPicker.js';
 import '@/styles/main.scss'
 import { OBJECT_TYPES } from '@/utils/detectionEngine.js';
+import { guid } from '@/utils/string.js';
 
 window.App = {};
 App.toast = function(msg, type, duration){
@@ -44,10 +45,13 @@ Alpine.data('app', () => ({
   comps: {
     cameraPicker: new CameraPicker(document.querySelector('.camera-picker')),
   },
+  utils: {
+    guid: guid,
+  },
   fn: {
-    handleCameraSelected({camera, objectType}){
+    handleCameraSelected({camera, objectType, monitorName}){
       console.log('> camera selected', camera, objectType);
-      monitorStore.addMonitor(camera, objectType);
+      monitorStore.addMonitor(camera, objectType, monitorName);
     }
   }
 }));

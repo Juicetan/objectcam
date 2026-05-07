@@ -53,7 +53,7 @@
                     x-data="monitor"
                   >
                     <div class="window-header">
-                      <div class="header-title" x-text="monitor.name"></div>
+                      <div class="header-title" x-text="monitor.displayName"></div>
                       <img 
                         src="./close.svg" 
                         alt="Close" 
@@ -90,13 +90,14 @@
                     <div class="snapshot-meta">
                       <div class="ss-datetime" x-text="snapshot.datetime.toLocaleString()"></div>
                       <div class="ss-objects">
-                        <span x-text="snapshot.predictions.length"></span>
-                        <template x-if="snapshot.predictions.length > 1">
-                          <span x-if="snapshot.predictions.length > 1">objects</span>
-                        </template>
-                        <template x-if="snapshot.predictions.length === 1">
-                          <span>object</span>
-                        </template>
+                        <div class="m-name" x-text="snapshot.monitor.name"></div>
+                        <div class="p-count">
+                          <span x-text="snapshot.predictions.length"></span>
+                          <span x-text="snapshot.monitor.objType"></span>
+                          <template x-if="snapshot.predictions.length > 1">
+                            <span x-if="snapshot.predictions.length > 1">s</span>
+                          </template>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -122,6 +123,10 @@
           <div class="modal-body">
             <template x-if="!isLoadingCameras">
               <div class="section-container">
+                <div class="section-header">Monitor name:</div>
+                <div class="monitor-name">
+                  <input type="text" class="monitor-name-input" x-ref="monitorNameInput" x-init="$refs.monitorNameInput.value = 'Monitor ' + utils.guid().slice(0, 4)" />
+                </div>
                 <div class="section-header">Object to monitor:</div>
                 <div class="object-select">
                   <select class="object-selector" x-ref="objectSelector">
@@ -133,7 +138,7 @@
                 <div class="section-header">Select a camera:</div>
                 <div class="camera-list">
                   <template x-for="camera in cameras" :key="camera.deviceId">
-                    <div class="camera-item" @click="selectCamera(camera, $refs.objectSelector.value)">
+                    <div class="camera-item" @click="selectCamera(camera, $refs.objectSelector.value, $refs.monitorNameInput.value)">
                       <div class="camera-name" x-text="camera?.label"></div>
                       <div class="camera-id" x-text="camera?.deviceId"></div>
                     </div>

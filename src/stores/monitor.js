@@ -5,14 +5,17 @@ import { removeObject } from '@/utils/array.js';
 Alpine.store('monitor', {
   monitors: [],
   snapshots: [],
-  addMonitor(camera, objectType){
-    const existingMonitor = this.monitors.find(m => m.cameraInfo?.deviceId === camera.deviceId && m.objType === objectType);
+  addMonitor(camera, objectType, monitorName){
+    const existingMonitor = this.monitors.find(m => m.name === monitorName);
     if(existingMonitor){
       App.toast('Monitor already exists', 'error');
       return existingMonitor;
     }
 
-    const monitor = new Monitor().setCameraInfo(camera);
+    const monitor = new Monitor({
+      cameraInfo: camera,
+      name: monitorName,
+    });
     if(objectType){
       monitor.setObjectType(objectType);
     }

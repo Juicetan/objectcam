@@ -3,19 +3,23 @@ import { closeMediaStream } from '@/utils/media.js';
 import { getModel, OBJECT_TYPES } from '@/utils/detectionEngine.js';
 
 export class Monitor {
-  constructor() {
+  constructor(opts = {}) {
     this.id = guid();
-    this.name = `Monitor ${this.id.slice(0, 8)}`;
-    this.objType = OBJECT_TYPES.PERSON;
+    this.name = opts.name || `Monitor ${this.id.slice(0, 4)}`;
+    this.objType = opts.objType || OBJECT_TYPES.PERSON;
     this.$elem = null;
     this.$video = null;
     this.$vidWrap = null;
     this.stream = null;
-    this.cameraInfo = null;
+    this.cameraInfo = opts.cameraInfo || null;
     this.detecting = false;
     this.predictionBoxes = [];
     this.lastPredictionCount = 0;
     this.evtListeners = [];
+  }
+
+  get displayName(){
+    return `${this.name} (${this.objType})`;
   }
   
   get renderScale(){
@@ -193,6 +197,7 @@ export class Monitor {
     });
 
     return {
+      monitor: this,
       datetime: new Date(),
       predictions: predictions,
       imgDataURL: canvas.toDataURL('image/webp', 0.85),

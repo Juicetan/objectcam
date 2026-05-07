@@ -13,6 +13,17 @@
       padding: 0 40px;
       margin-top: 30px;
     }
+    .monitor-name{
+      padding: 0 40px;
+      .monitor-name-input{
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #000;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+    }
     .object-select{
       padding: 0 40px;
       .object-selector{
