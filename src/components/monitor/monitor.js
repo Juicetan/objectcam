@@ -30,6 +30,11 @@ export class Monitor {
     };
   }
 
+  setObjectType(objectType){
+    this.objType = objectType;
+    return this;
+  }
+
   setEl($el){
     this.$elem = $el;
     this.$video = this.$elem.querySelector('.monitor-feed');

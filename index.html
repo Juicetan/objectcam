@@ -114,20 +114,31 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
           <div class="modal-header">
-            <div class="header-title">Select a camera</div>
+            <div class="header-title">Configure monitor</div>
             <button class="close-btn" @click="close()">
               <img src="./close.svg" alt="Close" class="close-icon" />
             </button>
           </div>
           <div class="modal-body">
             <template x-if="!isLoadingCameras">
-              <div class="camera-list">
-                <template x-for="camera in cameras" :key="camera.deviceId">
-                  <div class="camera-item" @click="selectCamera(camera)">
-                    <div class="camera-name" x-text="camera?.label"></div>
-                    <div class="camera-id" x-text="camera?.deviceId"></div>
-                  </div>
-                </template>
+              <div class="section-container">
+                <div class="section-header">Object to monitor:</div>
+                <div class="object-select">
+                  <select class="object-selector" x-ref="objectSelector">
+                    <template x-for="objectType in objectTypes" :key="objectType">
+                      <option :value="objectType" x-text="objectType"></option>
+                    </template>
+                  </select>
+                </div>
+                <div class="section-header">Select a camera:</div>
+                <div class="camera-list">
+                  <template x-for="camera in cameras" :key="camera.deviceId">
+                    <div class="camera-item" @click="selectCamera(camera, $refs.objectSelector.value)">
+                      <div class="camera-name" x-text="camera?.label"></div>
+                      <div class="camera-id" x-text="camera?.deviceId"></div>
+                    </div>
+                  </template>
+                </div>
               </div>
             </template>
             <template x-if="isLoadingCameras">

@@ -4,6 +4,7 @@ import Alpine from 'alpinejs';
 import { monitorStore } from '@/stores/monitor.js';
 import { CameraPicker } from '@/components/cameraPicker/cameraPicker.js';
 import '@/styles/main.scss'
+import { OBJECT_TYPES } from '@/utils/detectionEngine.js';
 
 window.App = {};
 App.toast = function(msg, type, duration){
@@ -39,13 +40,14 @@ App.toast = function(msg, type, duration){
 
 Alpine.data('app', () => ({
   monitorStore: monitorStore,
+  objectTypes: Object.keys(OBJECT_TYPES).map(key => OBJECT_TYPES[key]),
   comps: {
     cameraPicker: new CameraPicker(document.querySelector('.camera-picker')),
   },
   fn: {
-    handleCameraSelected(camera){
-      console.log('> camera selected', camera);
-      monitorStore.addMonitor(camera);
+    handleCameraSelected({camera, objectType}){
+      console.log('> camera selected', camera, objectType);
+      monitorStore.addMonitor(camera, objectType);
     }
   }
 }));

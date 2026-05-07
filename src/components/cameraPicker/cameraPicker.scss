@@ -5,6 +5,26 @@
   .modal-body{
     padding: 0 0 40px 0;
     width: 430px;
+    .section-header{
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 10px;
+      padding: 0 40px;
+      margin-top: 30px;
+    }
+    .object-select{
+      padding: 0 40px;
+      .object-selector{
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #000;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #000;
+      }
+    }
     .camera-list{
       .camera-item{
         @include clickable;

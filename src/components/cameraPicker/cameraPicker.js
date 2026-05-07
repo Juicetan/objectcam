@@ -77,9 +77,13 @@ export class CameraPicker {
   /**
    * Select a camera and close the picker
    * @param {InputDeviceInfo} camera 
+   * @param {string} objectType
    */
-  selectCamera(camera){
-    this._emitEvt('camera-selected', camera);
+  selectCamera(camera, objectType){
+    this._emitEvt('camera-selected', {
+      camera,
+      objectType,
+    });
     this.close();
   }
 }
