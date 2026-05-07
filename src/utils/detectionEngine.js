@@ -51,7 +51,7 @@ class DetectionModel{
   }
 
   async detect(video, opts = {}){
-    const { objType = OBJECT_TYPES.PERSON, confidence = 0.66 } = opts;
+    const { objType = OBJECT_TYPES.PERSON, confidence = 0.55 } = opts;
     const predictions = await this.tfModel.detect(video);
     return predictions.filter((p) => p.class === objType && p.score >= confidence).map((p) => ({
       objType: p.class,
