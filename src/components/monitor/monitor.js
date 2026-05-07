@@ -80,7 +80,7 @@ export class Monitor {
           objType: this.objType
         });
         this._renderPredictions(predictions);
-        window.requestAnimationFrame(detectLoop);
+        setTimeout(detectLoop, 100);
       } catch(err){
         console.error('detection error', err);
         setTimeout(detectLoop, 1000);
