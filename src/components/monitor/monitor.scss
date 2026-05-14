@@ -26,6 +26,7 @@
     }
   }
   .window-content{
+    position: relative;
     min-height: 0;
     flex: 1 1 auto;
     display: flex;
@@ -56,6 +57,20 @@
           padding: 5px 10px;
         }
       }
+    }
+    .loading-indicator{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
     }
   }
 }
