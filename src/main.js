@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-free/css/all.css'
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css"
 import Alpine from 'alpinejs';

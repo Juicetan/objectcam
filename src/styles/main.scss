@@ -261,6 +261,16 @@ code {
     }
     .header-right{
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .send-log-trigger{
+        @include clickable;
+        font-size: 25px;
+        &:hover{
+          color: var(--accent);
+        }
+      }
       .btn{
         @include flb-btn;
       }
