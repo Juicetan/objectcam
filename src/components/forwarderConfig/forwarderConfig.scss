@@ -28,6 +28,7 @@
       flex-direction: row;
       .btn{
         @include flb-btn;
+        min-width: 100px;
       }
     }
   }
