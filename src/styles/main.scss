@@ -2,6 +2,7 @@
 @use 'mixins' as *;
 @use '@/components/cameraPicker/cameraPicker.scss' as *;
 @use '@/components/monitor/monitor.scss' as *;
+@use '@/components/forwarderConfig/forwarderConfig.scss' as *;
 
 :root {
   --text: #{$color-text};

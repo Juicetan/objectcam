@@ -4,6 +4,7 @@ import "toastify-js/src/toastify.css"
 import Alpine from 'alpinejs';
 import { monitorStore } from '@/stores/monitor.js';
 import { CameraPicker } from '@/components/cameraPicker/cameraPicker.js';
+import { ForwarderConfig } from '@/components/forwarderConfig/forwarderConfig.js';
 import '@/styles/main.scss'
 import { OBJECT_TYPES } from '@/utils/detectionEngine.js';
 import { guid } from '@/utils/string.js';
@@ -45,6 +46,7 @@ Alpine.data('app', () => ({
   objectTypes: Object.keys(OBJECT_TYPES).map(key => OBJECT_TYPES[key]),
   comps: {
     cameraPicker: new CameraPicker(document.querySelector('.camera-picker')),
+    forwarderConfig: new ForwarderConfig(document.querySelector('.forwarder-config')),
   },
   utils: {
     guid: guid,
