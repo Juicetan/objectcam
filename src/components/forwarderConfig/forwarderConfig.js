@@ -1,4 +1,4 @@
-import { ConfigStore } from '@/components/monitor/config.js';
+import { ConfigStore } from '@/stores/config.js';
 import { randomAlphanumeric } from '@/utils/string.js';
 
 export class ForwarderConfig {

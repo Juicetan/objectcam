@@ -6,7 +6,7 @@ import { monitorStore } from '@/stores/monitor.js';
 import { CameraPicker } from '@/components/cameraPicker/cameraPicker.js';
 import { ForwarderConfig } from '@/components/forwarderConfig/forwarderConfig.js';
 import '@/styles/main.scss'
-import { ConfigStore } from '@/components/monitor/config.js';
+import { ConfigStore } from '@/stores/config.js';
 import { OBJECT_TYPES } from '@/utils/detectionEngine.js';
 import { guid } from '@/utils/string.js';
 
