@@ -47,7 +47,8 @@
             </div>
             <div class="header-right">
               <i 
-                class="fa fa-share-from-square send-log-trigger" 
+                class="fa fa-share-from-square send-log-trigger"
+                :class="{ 'service-set': configStore.isFwdSet() }"
                 @click="comps.forwarderConfig.open()"
                 title="Configure snapshot forwarding"
               ></i>
@@ -185,34 +186,37 @@
             <div class="section-description">
               Automatically send captured snapshots to any web service or use the WatcherCam viewer service.
             </div>
-            <div class="section-container form-group">
-              <div class="section-header field-label">Choose a service:</div>
-              <select 
-                class="forwarder-service-selector field-input"
-                x-model="serviceType"
-              >
-                <option value="watchercam">WatcherCam Viewer</option>
-                <option value="custom">Custom</option>
-              </select>
-              <template x-if="serviceType === 'custom'">
-                <div class="service-custom">
-                  <div class="section-header field-label">Forwarder URL:</div>
-                  <input type="text" class="forwarder-url-input field-input" x-ref="forwarderUrlInput" />
-                  <div class="field-error-info info">Enter the URL of the web service you want to send the captured snapshots to via POST requests.</div>
-                </div>
-              </template> 
-              <template x-if="serviceType === 'watchercam'">
-                <div class="service-watchercam">
-                  <div class="section-header field-label">WatcherCam storage key:</div>
-                  <input 
-                    type="text"
-                    class="watchercam-viewer-url-input field-input" x-ref="watchercamViewerUrlInput" 
-                    placeholder="Enter storage key (eg. ENJ434)"
-                  />
-                  <div class="field-error-info info">Use your storage key to remotely view your captured snapshots in the WatcherCam viewer. <a href="https://watchercam.com/viewer" target="_blank">https://watchercam.com/viewer</a></div>
-                </div>
-              </template>
-            </div>
+            <template x-if="isOpen">
+              <div class="section-container form-group">
+                <div class="section-header field-label">Choose a service:</div>
+                <select 
+                  class="forwarder-service-selector field-input"
+                  x-model="cfg.serviceType"
+                >
+                  <option value="watchercam">WatcherCam Viewer</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <template x-if="cfg.serviceType === 'custom'">
+                  <div class="service-custom">
+                    <div class="section-header field-label">Forwarder URL:</div>
+                    <input type="text" class="forwarder-url-input field-input" x-ref="forwarderUrlInput" x-model="cfg.forwarderUrl" />
+                    <div class="field-error-info info">Enter the URL of the web service you want to send the captured snapshots to via POST requests.</div>
+                  </div>
+                </template> 
+                <template x-if="cfg.serviceType === 'watchercam'">
+                  <div class="service-watchercam">
+                    <div class="section-header field-label">Choose a storage key:</div>
+                    <input 
+                      type="text"
+                      class="watchercam-viewer-url-input field-input" x-ref="watchercamViewerUrlInput" 
+                      placeholder="Choose a storage key (eg. ENJ434)"
+                      x-model="cfg.storageKey"
+                    />
+                    <div class="field-error-info info">Use your storage key to remotely view your captured snapshots in the WatcherCam viewer. <a href="https://watchercam.com/viewer" target="_blank">https://watchercam.com/viewer</a></div>
+                  </div>
+                </template>
+              </div>
+            </template>
           </div>
           <div class="modal-footer">
             <button class="btn secondary" @click="close()">Cancel</button>

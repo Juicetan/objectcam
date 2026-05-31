@@ -308,7 +308,6 @@ var IDBStore = (function(){
   var INTERNALSTORENAME = 'keyvaluepairs';
 
   function IDBStore(storeName, internalStoreName){
-    BaseObj.call(this);
     storeName = storeName || 'objectcam.general';
     this.storeName = storeName;
     this.internalStoreName = internalStoreName || INTERNALSTORENAME;

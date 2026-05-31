@@ -1,7 +1,15 @@
+import { ConfigStore } from '@/components/monitor/config.js';
+import { randomAlphanumeric } from '@/utils/string.js';
+
 export class ForwarderConfig {
   constructor($el) {
     this.$elem = $el;
     this.isOpen = false;
+    this.cfg = {
+      serviceType: '', // watchercam, custom
+      forwarderUrl: '',
+      storageKey: '',
+    };
 
     this.$elem.addEventListener('close', (e) => {
       e.stopPropagation();
@@ -14,11 +22,20 @@ export class ForwarderConfig {
       e.stopPropagation();
       e.preventDefault();
     });
-
-    this.serviceType = 'watchercam';
   }
 
   open(){
+    ConfigStore.ready.then(() => {
+      this.cfg.serviceType = ConfigStore.serviceType;
+      this.cfg.forwarderUrl = ConfigStore.forwarderUrl;
+      this.cfg.storageKey = ConfigStore.storageKey;
+      if(!this.cfg.serviceType){
+        this.cfg.serviceType = 'watchercam';
+      }
+      if(!this.cfg.storageKey){
+        this.cfg.storageKey = randomAlphanumeric(10);
+      }
+    });
     this.isOpen = true;
     this.$elem.classList.add('open');
     this.$elem.classList.remove('closing');
@@ -33,6 +50,17 @@ export class ForwarderConfig {
       this.$elem.classList.remove('closing');
       this.$elem.close();
     }, 200);
+  }
+
+  save(){
+    ConfigStore.serviceType = this.cfg.serviceType;
+    ConfigStore.forwarderUrl = this.cfg.forwarderUrl;
+    ConfigStore.storageKey = this.cfg.storageKey;
+    ConfigStore.persist().then(() => {
+      App.toast('Snapshot forwarding configured');
+      this._emitEvt('config-saved');
+    });
+    this.close();
   }
 
   /**

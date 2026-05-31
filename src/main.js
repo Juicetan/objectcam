@@ -6,9 +6,13 @@ import { monitorStore } from '@/stores/monitor.js';
 import { CameraPicker } from '@/components/cameraPicker/cameraPicker.js';
 import { ForwarderConfig } from '@/components/forwarderConfig/forwarderConfig.js';
 import '@/styles/main.scss'
+import { ConfigStore } from '@/components/monitor/config.js';
 import { OBJECT_TYPES } from '@/utils/detectionEngine.js';
 import { guid } from '@/utils/string.js';
 
+ConfigStore.hydrate().then(() => {
+  console.log('> config store ready');
+});
 window.App = {};
 App.toast = function(msg, type, duration){
   type = type || 'normal';
@@ -40,7 +44,6 @@ App.toast = function(msg, type, duration){
   Toastify(opt).showToast();
 }
 
-
 Alpine.data('app', () => ({
   monitorStore: monitorStore,
   objectTypes: Object.keys(OBJECT_TYPES).map(key => OBJECT_TYPES[key]),
@@ -48,6 +51,7 @@ Alpine.data('app', () => ({
     cameraPicker: new CameraPicker(document.querySelector('.camera-picker')),
     forwarderConfig: new ForwarderConfig(document.querySelector('.forwarder-config')),
   },
+  configStore: ConfigStore,
   utils: {
     guid: guid,
   },
@@ -59,4 +63,6 @@ Alpine.data('app', () => ({
   }
 }));
 
+App.cfg = ConfigStore;
+App.monitorStore = monitorStore;
 Alpine.start();

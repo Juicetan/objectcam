@@ -271,6 +271,9 @@ code {
         &:hover{
           color: var(--accent);
         }
+        &.service-set{
+          color: var(--accent);
+        }
       }
       .btn{
         @include flb-btn;
