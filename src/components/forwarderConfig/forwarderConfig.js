@@ -43,6 +43,14 @@ export class ForwarderConfig {
     this.$elem.showModal();
   } 
 
+  reset(){
+    this.cfg.serviceType = '';
+    this.cfg.storageKey = randomAlphanumeric(10);
+    ConfigStore.reset();
+    ForwarderStore.stopHealthCheck();
+    this.close();
+  }
+
   close(){
     this.isOpen = false;
     this.$elem.classList.remove('open');

@@ -16,6 +16,7 @@ export const toForwarderData = (snapshot) => {
 export const ForwarderStore = {
   _isForwarding: false,
   _throttleTimer: null,
+  _heartbeatTimer: null,
   queue: [],
   _isHealthCheck: false,
   async forward(snapshot) {
@@ -67,6 +68,10 @@ export const ForwarderStore = {
     this._isHealthCheck = true;
     this.reportHeartbeat();
   },
+  stopHealthCheck() {
+    this._isHealthCheck = false;
+    clearTimeout(this._heartbeatTimer);
+  },
   async reportHeartbeat() {
     try{
       const response = await apiFetch(ConfigStore.WATCHERCAM_HEARTBEAT_URL, {
@@ -79,8 +84,10 @@ export const ForwarderStore = {
     } catch(error){
       console.error('> reportHeartbeat error', error);
     }
-    setTimeout(() => {
-      this.reportHeartbeat();
+    this._heartbeatTimer = setTimeout(() => {
+      if(this._isHealthCheck){
+        this.reportHeartbeat();
+      }
     }, 60000);
   },
 }
