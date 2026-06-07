@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs';
 import { Monitor } from '@/components/monitor/monitor.js';
 import { removeObject } from '@/utils/array.js';
+import { ForwarderStore } from '@/stores/forwarder.js';
 
 Alpine.store('monitor', {
   monitors: [],
@@ -22,8 +23,10 @@ Alpine.store('monitor', {
 
     monitor.on('snapshot', (snapshot) => {
       this.snapshots.push(snapshot);
+      ForwarderStore.forward(snapshot);
     });
     this.monitors.push(monitor);
+    ForwarderStore.initHealthCheck();
   },
   removeMonitor(monitor){
     monitor.stopFeed();
