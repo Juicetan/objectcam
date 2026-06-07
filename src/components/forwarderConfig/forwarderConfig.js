@@ -55,6 +55,9 @@ export class ForwarderConfig {
   save(){
     ConfigStore.serviceType = this.cfg.serviceType;
     ConfigStore.forwarderUrl = this.cfg.forwarderUrl;
+    if(this.cfg.serviceType === 'watchercam'){
+      ConfigStore.forwarderUrl = ConfigStore.WATCHERCAM_REPORT_URL;
+    }
     ConfigStore.storageKey = this.cfg.storageKey;
     ConfigStore.persist().then(() => {
       App.toast('Snapshot forwarding configured');

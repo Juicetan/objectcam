@@ -3,8 +3,10 @@ import Deferred from '@/models/deferred';
 
 const deferredReady = new Deferred();
 const configStore = new IDBStore();
-
+  
 export const ConfigStore = {
+  WATCHERCAM_HEARTBEAT_URL: 'https://api.watchercam.com/health',
+  WATCHERCAM_REPORT_URL: 'https://api.watchercam.com/snapshot',
   ready: deferredReady.promise,
   forwarderUrl: '',
   storageKey: '',
