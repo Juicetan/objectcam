@@ -212,7 +212,7 @@
                       placeholder="Choose a storage key (eg. ENJ434)"
                       x-model="cfg.storageKey"
                     />
-                    <div class="field-error-info info">Use your storage key to remotely view your captured snapshots in the WatcherCam viewer. <a href="https://watchercam.com/viewer" target="_blank">https://watchercam.com/viewer</a></div>
+                    <div class="field-error-info info">Use your storage key to remotely view your captured snapshots in the WatcherCam viewer. <a :href="cfg.storageKey ? `https://watchercam.com/viewer?key=${encodeURIComponent(cfg.storageKey)}` : 'https://watchercam.com/viewer'" target="_blank">https://watchercam.com/viewer</a></div>
                   </div>
                 </template>
               </div>
