@@ -2,6 +2,7 @@
 @use 'mixins' as *;
 @use '@/components/cameraPicker/cameraPicker.scss' as *;
 @use '@/components/monitor/monitor.scss' as *;
+@use '@/components/forwarderConfig/forwarderConfig.scss' as *;
 
 :root {
   --text: #{$color-text};
@@ -261,6 +262,19 @@ code {
     }
     .header-right{
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .send-log-trigger{
+        @include clickable;
+        font-size: 25px;
+        &:hover{
+          color: var(--accent);
+        }
+        &.service-set{
+          color: var(--accent);
+        }
+      }
       .btn{
         @include flb-btn;
       }
