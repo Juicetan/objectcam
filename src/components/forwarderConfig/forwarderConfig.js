@@ -1,4 +1,5 @@
 import { ConfigStore } from '@/stores/config.js';
+import { ForwarderStore } from '@/stores/forwarder.js';
 import { randomAlphanumeric } from '@/utils/string.js';
 
 export class ForwarderConfig {
@@ -61,6 +62,7 @@ export class ForwarderConfig {
     ConfigStore.storageKey = this.cfg.storageKey;
     ConfigStore.persist().then(() => {
       App.toast('Snapshot forwarding configured');
+      ForwarderStore.initHealthCheck();
       this._emitEvt('config-saved');
     });
     this.close();

@@ -75,6 +75,7 @@ export const ForwarderStore = {
           key: ConfigStore.storageKey
         }),
       });
+      console.log('> reportHeartbeat success', response);
     } catch(error){
       console.error('> reportHeartbeat error', error);
     }
